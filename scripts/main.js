@@ -1,3 +1,6 @@
+
+const currentLocationWeather = document.querySelector('.btn-current-weather');
+
 const weatherDetails = document.querySelector('.weatherDetails');
 
 // Weather temprature
@@ -71,3 +74,5 @@ function geoFindMe() {
     output.innerHTML = "<p>Locating…</p>";
     navigator.geolocation.getCurrentPosition(success, error);
 }
+
+currentLocationWeather.addEventListener('click', geoFindMe);
