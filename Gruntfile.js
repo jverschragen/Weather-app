@@ -2,13 +2,13 @@ module.exports = function(grunt) {
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-
+        banner: '/*! <%= pkg.name %> ' + 'v:' + '<%= pkg.version %> ' + 'Date: ' + '<%= grunt.template.today("yyyy-mm-dd") %> */\n',
         watch: {
             sass: {
                 files: '**/*.sass', // ** any directory; * any file
                 tasks: ['css'],
                 options: {
-                    livereload: true
+                    livereload: 35729
                 }
             },
             uglify: {
