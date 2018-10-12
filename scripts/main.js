@@ -1,5 +1,8 @@
-
 const currentLocationWeather = document.querySelector('.btn-current-weather');
+
+
+const currentDateTime = document.querySelector('#date');
+
 
 const weatherDetails = document.querySelector('.weatherDetails');
 
@@ -34,6 +37,7 @@ function geoFindMe() {
         const openWeatherUrl = 'http://api.openweathermap.org/data/2.5/weather?lat=' + latitude + '&lon=' + longitude + '&units=metric' + '&APPID=' + openWeatherAppId;
         console.log(openWeatherUrl);
 
+        // API connection
         fetch(openWeatherUrl)
             .then(blob => blob.json())
             .then(weather => {
@@ -42,7 +46,7 @@ function geoFindMe() {
             .catch(function(error) {
                     console.log(error);
             })
-
+        // get weather
         function displayWeather(weatherInfo){
             /*const {main: temp} = weatherInfo;
             console.log('temp: ', temp);*/
@@ -61,18 +65,23 @@ function geoFindMe() {
             weatherLocation.innerHTML = location;
             weatherTemp.innerHTML = temp + '°';
             weatherTempMinMax.innerHTML = tempMax + '° / ' + tempMin + '°';
-
-
-
         }
+
 
     }
 
     function error() {
         output.innerHTML = "Unable to retrieve your location";
     }
+
+    function setDate() {
+        const now = new Date();
+        currentDateTime.innerHTML = now;
+    }
+
     output.innerHTML = "<p>Locating…</p>";
     navigator.geolocation.getCurrentPosition(success, error);
+    setDate();
 }
 
 currentLocationWeather.addEventListener('click', geoFindMe);
