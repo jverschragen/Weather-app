@@ -1,24 +1,11 @@
 const currentLocationWeather = document.querySelector('.btn-current-weather');
-
-
 const currentDateTime = document.querySelector('#date');
-
-
 const weatherDetails = document.querySelector('.weatherDetails');
-
-// Weather temprature
 const weatherTemp = weatherDetails.querySelector('#temp');
 const weatherTempMinMax = weatherDetails.querySelector('#tempMinMax');
-
-// Weather description
 const weatherDescription = weatherDetails.querySelector('#description');
-
-// Weather location
 const weatherLocation = document.querySelector('#location');
 
-
-
-// get latitude and longitude
 function geoFindMe() {
     const output = document.getElementById("out");
 
@@ -28,6 +15,7 @@ function geoFindMe() {
     }
 
     function success(position) {
+        // get latitude and longitude
         let latitude  = position.coords.latitude;
         let longitude = position.coords.longitude;
 
@@ -41,7 +29,8 @@ function geoFindMe() {
         fetch(openWeatherUrl)
             .then(blob => blob.json())
             .then(weather => {
-                displayWeather(weather)
+                displayWeather(weather),
+                setDate();
             })
             .catch(function(error) {
                     console.log(error);
@@ -66,8 +55,6 @@ function geoFindMe() {
             weatherTemp.innerHTML = temp + '°';
             weatherTempMinMax.innerHTML = tempMax + '° / ' + tempMin + '°';
         }
-
-
     }
 
     function error() {
@@ -96,7 +83,6 @@ function geoFindMe() {
 
     output.innerHTML = "<p>Locating…</p>";
     navigator.geolocation.getCurrentPosition(success, error);
-    setDate();
 }
 
 currentLocationWeather.addEventListener('click', geoFindMe);
