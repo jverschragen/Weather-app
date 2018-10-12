@@ -52,9 +52,9 @@ module.exports = function(grunt) {
     });
 
     // Default task
-    grunt.registerTask('default', ['watch']);
     grunt.registerTask('css', ['sass', 'cssmin']);
     grunt.registerTask('js', ['uglify']);
+    grunt.registerTask('default', ['css', 'js', 'watch']);
     // Load up tasks
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-watch');
