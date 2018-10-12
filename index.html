@@ -2,14 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-
+    <title>Weather app</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="styles/main.min.css">
 </head>
 <body>
-<header>
-
-</header>
-
-<script src="http://localhost:35729/livereload.js"></script>
+    <main>
+        <p><button class="btn btn-current-weather">Current location</button></p>
+        <div id="location"></div>
+        <div id="date"></div>
+        <div id="out"></div>
+        <div class="weatherDetails">
+            <h1><span id="temp"></span></h1>
+            <p id="tempMinMax"></p>
+            <h2 id="description"></h2>
+        </div>
+    </main>
+    <script src="scripts/main.min.js"></script>
+    <script src="http://localhost:35729/livereload.js"></script>
 </body>
 </html>
