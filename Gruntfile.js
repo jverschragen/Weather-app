@@ -5,21 +5,21 @@ module.exports = function(grunt) {
         banner: '/*! <%= pkg.name %> ' + 'v:' + '<%= pkg.version %> ' + 'Date: ' + '<%= grunt.template.today("yyyy-mm-dd") %> */\n',
         watch: {
             sass: {
-                files: '**/*.sass', // ** any directory; * any file
+                files: 'app/**/*.sass', // ** any directory; * any file
                 tasks: ['css'],
                 options: {
                     livereload: 35729
                 }
             },
             uglify: {
-                files: 'scripts/main.js',
+                files: 'app/scripts/main.js',
                 tasks: ['uglify'],
                 options: {
                     livereload: true
                 }
             },
             all: {
-                files: ['**/*.html'],
+                files: ['app/*.html'],
                 options: {
                     livereload: true
                 }
@@ -29,7 +29,7 @@ module.exports = function(grunt) {
         uglify: {
             build: {
                 files: {
-                    'scripts/main.min.js': ['scripts/main.js']
+                    'dist/javascript/main.min.js': ['scripts/main.js']
                 }
             }
         },
@@ -37,7 +37,7 @@ module.exports = function(grunt) {
         cssmin: {
             build: {
                 src: 'styles/main.css',
-                dest: 'styles/main.min.css'
+                dest: 'dist/css/main.min.css'
             }
         },
 
