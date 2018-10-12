@@ -75,8 +75,23 @@ function geoFindMe() {
     }
 
     function setDate() {
+        const monthNames = ["january", "february", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+        const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
         const now = new Date();
-        currentDateTime.innerHTML = now;
+        const month = monthNames[now.getMonth()];
+        const day = now.getDay();
+        const dayName = dayNames[now.getDay()];
+        const hours = checkTime(now.getHours());
+        const minutes = checkTime(now.getMinutes());
+        currentDateTime.innerHTML = dayName + ' ' + day + ' ' + month + ' ' + hours + ':' + minutes;
+    }
+
+    function checkTime(i) {
+        if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+        return i;
     }
 
     output.innerHTML = "<p>Locating…</p>";
