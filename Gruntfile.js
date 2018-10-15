@@ -5,21 +5,21 @@ module.exports = function(grunt) {
         banner: '/*! <%= pkg.name %> ' + 'v:' + '<%= pkg.version %> ' + 'Date: ' + '<%= grunt.template.today("yyyy-mm-dd") %> */\n',
         watch: {
             sass: {
-                files: '**/*.sass', // ** any directory; * any file
+                files: 'app/**/*.sass', // ** any directory; * any file
                 tasks: ['css'],
                 options: {
                     livereload: 35729
                 }
             },
             uglify: {
-                files: 'scripts/main.js',
+                files: 'app/scripts/main.js',
                 tasks: ['uglify'],
                 options: {
                     livereload: true
                 }
             },
             all: {
-                files: ['**/*.html'],
+                files: ['app/*.html'],
                 options: {
                     livereload: true
                 }
@@ -29,15 +29,16 @@ module.exports = function(grunt) {
         uglify: {
             build: {
                 files: {
-                    'scripts/main.min.js': ['scripts/main.js']
+                    'dist/javascript/main.min.js': 'app/**/main.js'
                 }
             }
         },
 
         cssmin: {
             build: {
-                src: 'styles/main.css',
-                dest: 'styles/main.min.css'
+                src: 'app/styles/main.css',
+                dest: 'dist/css/main.min.css'
+
             }
         },
 
@@ -45,19 +46,20 @@ module.exports = function(grunt) {
             dev: {    // indicates that it will be used only during development
                 files: {
                     // destination // source file
-                    'styles/main.css': 'styles/main.sass'
+                    'app/styles/main.css': 'app/styles/main.sass'
                 }
             }
         }
     });
 
-    // Default task
-    grunt.registerTask('default', ['watch']);
-    grunt.registerTask('css', ['sass', 'cssmin']);
-    grunt.registerTask('js', ['uglify']);
     // Load up tasks
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-uglify-es');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
+
+    // Default task
+    grunt.registerTask('css', ['sass', 'cssmin']);
+    grunt.registerTask('js', ['uglify']);
+    grunt.registerTask('default', ['css', 'js', 'watch']);
 };
