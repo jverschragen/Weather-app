@@ -29,15 +29,16 @@ module.exports = function(grunt) {
         uglify: {
             build: {
                 files: {
-                    'dist/javascript/main.min.js': ['scripts/main.js']
+                    'dist/javascript/main.min.js': 'app/**/main.js'
                 }
             }
         },
 
         cssmin: {
             build: {
-                src: 'styles/main.css',
+                src: 'app/styles/main.css',
                 dest: 'dist/css/main.min.css'
+
             }
         },
 
@@ -45,19 +46,20 @@ module.exports = function(grunt) {
             dev: {    // indicates that it will be used only during development
                 files: {
                     // destination // source file
-                    'styles/main.css': 'styles/main.sass'
+                    'app/styles/main.css': 'app/styles/main.sass'
                 }
             }
         }
     });
 
-    // Default task
-    grunt.registerTask('css', ['sass', 'cssmin']);
-    grunt.registerTask('js', ['uglify']);
-    grunt.registerTask('default', ['css', 'js', 'watch']);
     // Load up tasks
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-uglify-es');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
+
+    // Default task
+    grunt.registerTask('css', ['sass', 'cssmin']);
+    grunt.registerTask('js', ['uglify']);
+    grunt.registerTask('default', ['css', 'js', 'watch']);
 };
