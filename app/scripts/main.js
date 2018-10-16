@@ -1,7 +1,7 @@
 const openWeatherAppId = 'd90a44dbf472319541d6a7489eeb5f79';
 const openWeatherEndpoint = 'https://api.openweathermap.org/data/2.5/weather';
 
-const searchButton = document.querySelector('.btn-location-weather');
+const searchButton = document.querySelector('.btn-city-weather');
 const searchInput = document.querySelector('.search');
 
 const currentLocationWeather = document.querySelector('.btn-current-weather');
@@ -27,6 +27,7 @@ function geoFindMe() {
 
         output.innerHTML = '<p>Latitude is ' + latitude.toFixed(2) + '° <br>Longitude is ' + longitude.toFixed(2) + '°</p>';
         locationWeather(longitude, latitude);
+        setDate();
     }
     function error() {
         output.innerHTML = "Unable to retrieve your location";
@@ -44,7 +45,21 @@ function locationWeather(longitude, latitude){
         .then(blob => blob.json())
         .then(weather => {
             displayWeather(weather);
-            setDate();
+        })
+        .catch(function(error) {
+            console.log(error);
+        })
+}
+
+function cityWeather(cityname){
+    const openWeatherUrl = openWeatherEndpoint + '?q=' + cityname + '&units=metric' + '&APPID=' + openWeatherAppId;
+    console.log(openWeatherUrl);
+
+    // API connection
+    fetch(openWeatherUrl)
+        .then(blob => blob.json())
+        .then(weather => {
+            displayWeather(weather);
         })
         .catch(function(error) {
             console.log(error);
@@ -95,3 +110,4 @@ function checkTime(i) {
 }
 
 currentLocationWeather.addEventListener('click', geoFindMe);
+searchButton.addEventListener('click', cityWeather('london'));
