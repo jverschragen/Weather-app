@@ -1,3 +1,9 @@
+const openWeatherAppId = 'd90a44dbf472319541d6a7489eeb5f79';
+const openWeatherEndpoint = 'https://api.openweathermap.org/data/2.5/weather';
+
+const searchButton = document.querySelector('.btn-location-weather');
+const searchInput = document.querySelector('.search');
+
 const currentLocationWeather = document.querySelector('.btn-current-weather');
 const currentDateTime = document.querySelector('#date');
 const weatherDetails = document.querySelector('.weatherDetails');
@@ -6,6 +12,8 @@ const weatherTempMinMax = weatherDetails.querySelector('#tempMinMax');
 const weatherDescription = weatherDetails.querySelector('#description');
 const weatherLocation = document.querySelector('#location');
 
+
+// get long and lat
 function geoFindMe() {
     const output = document.getElementById("out");
     if (!navigator.geolocation){
@@ -18,27 +26,29 @@ function geoFindMe() {
         let longitude = position.coords.longitude;
 
         output.innerHTML = '<p>Latitude is ' + latitude.toFixed(2) + '° <br>Longitude is ' + longitude.toFixed(2) + '°</p>';
-
-        const openWeatherAppId = 'd90a44dbf472319541d6a7489eeb5f79';
-        const openWeatherUrl = 'http://api.openweathermap.org/data/2.5/weather?lat=' + latitude + '&lon=' + longitude + '&units=metric' + '&APPID=' + openWeatherAppId;
-        console.log(openWeatherUrl);
-
-        // API connection
-        fetch(openWeatherUrl)
-            .then(blob => blob.json())
-            .then(weather => {
-                displayWeather(weather),
-                setDate();
-            })
-            .catch(function(error) {
-                    console.log(error);
-            })
+        locationWeather(longitude, latitude);
     }
     function error() {
         output.innerHTML = "Unable to retrieve your location";
     }
     output.innerHTML = "<p>Locating…</p>";
     navigator.geolocation.getCurrentPosition(success, error);
+}
+
+function locationWeather(longitude, latitude){
+    const openWeatherUrl = openWeatherEndpoint + '?lat=' + latitude + '&lon=' + longitude + '&units=metric' + '&APPID=' + openWeatherAppId;
+    console.log(openWeatherUrl);
+
+    // API connection
+    fetch(openWeatherUrl)
+        .then(blob => blob.json())
+        .then(weather => {
+            displayWeather(weather);
+            setDate();
+        })
+        .catch(function(error) {
+            console.log(error);
+        })
 }
 
 // get weather information
